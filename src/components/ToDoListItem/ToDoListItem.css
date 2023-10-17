@@ -1,0 +1,60 @@
+.todo-list-item {
+  margin: 0 auto;
+  display: flex;
+  width: 70vw;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.button-wrapper {
+  display: flex;
+  gap: 1vw;
+}
+
+.todo-list-item.done .todo-list-item-label {
+  text-decoration: line-through;
+}
+
+.important {
+  color: steelblue;
+  font-weight: bold;
+}
+
+.task-check-label {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  min-width: 300px;
+  max-width: 300px;
+}
+
+.checkbox-primary {
+  appearance: none;
+}
+
+.checkbox {
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  border: solid blue 1px;
+  outline: none;
+  flex-shrink: 0;
+}
+
+.checkbox:checked {
+  background-color: blue;
+}
+
+.checkbox:checked:focus {
+  border: solid blue 3px;
+  background-color: blue;
+}
+
+.checkbox:focus {
+  border: solid blue 3px;
+}
+
+.checkbox:hover {
+  border: solid blue 2px;
+  background-color: aqua;
+}
