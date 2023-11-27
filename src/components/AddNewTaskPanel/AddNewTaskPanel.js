@@ -1,46 +1,59 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import './AddNewTaskPanel.css'
 
-export default class AddNewTaskPanel extends React.Component {
-    state = {
-        label: '',
+export default function AddNewTaskPanel({ onAdd }) {
+    const [label, setLabel] = useState('')
+    const [min, setMin] = useState('')
+    const [sec, setSec] = useState('')
+
+    const onLabelChange = (e) => {
+        setLabel(e.target.value)
     }
 
-    onLabelChange = (e) => {
-        this.setState({
-            label: e.target.value,
-        })
+    const onMinChange = (e) => {
+        setMin(e.target.value)
     }
 
-    onSubmit = (e) => {
-        const { label } = this.state
+    const onSecChange = (e) => {
+        setSec(e.target.value)
+    }
+
+    const onSubmit = (e) => {
         e.preventDefault()
-        this.props.onAdd(label)
-        this.setState({
-            label: '',
-        })
+        onAdd(label, min, sec)
+        setLabel(e.target.value)
+        setMin(e.target.value)
+        setSec(e.target.value)
     }
 
-    render() {
-        const { label } = this.state
-        return (
-            <form className="add-new-task-form" onSubmit={this.onSubmit}>
-                <input
-                    className="form-control"
-                    placeholder="What are we going to do?"
-                    onChange={this.onLabelChange}
-                    value={label}
-                />
-                <button
-                    type="submit"
-                    className="btn btn-info btn-info-position"
-                >
-                    Add new task
-                </button>
-            </form>
-        )
-    }
+    return (
+        <form className="add-new-task-form" onSubmit={onSubmit}>
+            <input
+                className="form-control"
+                placeholder="Task name"
+                onChange={onLabelChange}
+                value={label}
+            />
+            <input
+                type="number"
+                className="form-control min"
+                placeholder="min"
+                onChange={onMinChange}
+                value={min}
+            />
+            <input
+                type="number"
+                className="form-control sec"
+                placeholder="sec"
+                onChange={onSecChange}
+                value={sec}
+            />
+            <button type="submit" className="btn btn-info btn-info-position">
+                Add new task
+            </button>
+        </form>
+    )
 }
 
 AddNewTaskPanel.propTypes = {

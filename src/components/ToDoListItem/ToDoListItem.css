@@ -1,60 +1,130 @@
 .todo-list-item {
-  margin: 0 auto;
-  display: flex;
-  width: 70vw;
-  justify-content: space-between;
-  cursor: pointer;
+    margin: 0 auto;
+    width: 70vw;
+    justify-content: space-between;
+    cursor: pointer;
+    display: flex;
 }
 
 .button-wrapper {
-  display: flex;
-  gap: 1vw;
+    display: flex;
+    gap: 1vw;
 }
 
 .todo-list-item.done .todo-list-item-label {
-  text-decoration: line-through;
+    text-decoration: line-through;
+}
+.todo-list-item-open.done .todo-list-item-label {
+    text-decoration: line-through;
 }
 
 .important {
-  color: steelblue;
-  font-weight: bold;
+    color: steelblue;
+    font-weight: bold;
 }
 
 .task-check-label {
-  display: flex;
-  align-items: center;
-  gap: 1vw;
-  min-width: 300px;
-  max-width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    min-width: 300px;
+    max-width: 300px;
 }
 
 .checkbox-primary {
-  appearance: none;
+    appearance: none;
 }
 
 .checkbox {
-  height: 1rem;
-  width: 1rem;
-  border-radius: 50%;
-  border: solid blue 1px;
-  outline: none;
-  flex-shrink: 0;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    border: solid blue 1px;
+    outline: none;
+    flex-shrink: 0;
 }
 
 .checkbox:checked {
-  background-color: blue;
+    background-color: blue;
 }
 
 .checkbox:checked:focus {
-  border: solid blue 3px;
-  background-color: blue;
+    border: solid blue 3px;
+    background-color: blue;
 }
 
 .checkbox:focus {
-  border: solid blue 3px;
+    border: solid blue 3px;
 }
 
 .checkbox:hover {
-  border: solid blue 2px;
-  background-color: aqua;
+    border: solid blue 2px;
+    background-color: aqua;
+}
+
+.timer-wrapper {
+    display: flex;
+    align-items: center;
+    width: 12vw;
+    gap: 1vw;
+}
+
+.btn-play {
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.btn-play:hover .play-icon {
+    border: 1px solid white;
+}
+
+.play-icon {
+    position: absolute;
+    border: 1px solid green;
+    border-radius: 20%;
+    height: 15px;
+}
+
+.first {
+    top: 7px;
+    left: 10px;
+}
+
+.second {
+    top: 12px;
+    left: 14px;
+    transform: rotate(45deg);
+    height: 10.5px;
+}
+.third {
+    top: 6px;
+    left: 14px;
+    transform: rotate(-45deg);
+    height: 10.5px;
+}
+
+.btn-stop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 30px;
+    height: 30px;
+}
+
+.btn-stop:hover .stop-icon {
+    border: 1px solid white;
+}
+
+.stop-icon {
+    border: 1px solid red;
+    border-radius: 20%;
+    height: 16px;
+}
+
+.time-ago {
+    width: 15vw;
+    margin-left: auto;
+    margin-right: 5vw;
 }

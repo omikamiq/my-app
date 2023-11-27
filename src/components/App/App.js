@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AppHeader from '../AppHeader/AppHeader'
 import ToDoList from '../ToDoList/ToDoList'
 import ItemStatusFilter from '../ItemStatusFilter/ItemStatusFilter'
@@ -11,111 +11,99 @@ const toggleProperty = (arr, id, propName) => {
     return updatedArr
 }
 
-export default class App extends React.Component {
-    maxId = 100
+export default function App() {
+    let maxId = 100
 
-    state = {
-        toDoData: [
-            this.createToDoItem('Drink coffee'),
-            this.createToDoItem('Make awesome App'),
-            this.createToDoItem('Have a lunch'),
-        ],
-        filter: 'all',
-    }
-
-    deleteItem = (id) => {
-        this.setState(({ toDoData }) => {
-            const index = toDoData.findIndex((el) => el.id === id)
-            const updatedToDoData = JSON.parse(JSON.stringify(toDoData))
-            updatedToDoData.splice(index, 1)
-            return {
-                toDoData: updatedToDoData,
-            }
-        })
-    }
-
-    addItem = (text) => {
-        const newItem = this.createToDoItem(text)
-        this.setState(({ toDoData }) => {
-            const updatedToDoData = JSON.parse(JSON.stringify(toDoData))
-            updatedToDoData.push(newItem)
-            return {
-                toDoData: updatedToDoData,
-            }
-        })
-    }
-
-    onToggleImportant = (id) => {
-        this.setState(({ toDoData }) => ({
-            toDoData: toggleProperty(toDoData, id, 'important'),
-        }))
-    }
-
-    onToggleDone = (id) => {
-        this.setState(({ toDoData }) => ({
-            toDoData: toggleProperty(toDoData, id, 'done'),
-        }))
-    }
-
-    deleteAllDone = () => {
-        this.setState(({ toDoData }) => {
-            const updatedToDoData = JSON.parse(JSON.stringify(toDoData))
-            const newData = updatedToDoData.filter((el) => !el.done)
-            return {
-                toDoData: newData,
-            }
-        })
-    }
-
-    changeFilter = (filter) => {
-        this.setState({
-            filter,
-        })
-    }
-
-    createToDoItem(label) {
+    const createToDoItem = (label, min, sec) => {
+        const createTime = new Date().getTime()
         return {
             label,
+            min: min || '00',
+            sec: sec || '00',
             important: false,
             done: false,
-            id: this.maxId++,
-            createdTimeAgo: new Date().getTime(),
+            id: maxId++,
+            createTime,
+            timer: createTime + (+min * 60 + +sec) * 1000,
         }
     }
 
-    render() {
-        const { toDoData, filter } = this.state
-        const doneCount = toDoData.filter((el) => el.done).length
-        const toDoCount = toDoData.length - doneCount
-        let filteredItems = toDoData
-        if (filter === 'all') {
-            filteredItems = toDoData
-        } else if (filter === 'done') {
-            filteredItems = toDoData.filter((task) => task.done)
-        } else if (filter === 'active') {
-            filteredItems = toDoData.filter((task) => !task.done)
-        }
-
-        return (
-            <>
-                <AppHeader />
-                <AddNewTaskPanel onAdd={this.addItem} />
-                <ItemStatusFilter
-                    toDo={toDoCount}
-                    done={doneCount}
-                    deleteAllDone={this.deleteAllDone}
-                    changeFilter={this.changeFilter}
-                />
-                <ToDoList
-                    toDos={filteredItems}
-                    onDelete={this.deleteItem}
-                    onToggleImportant={this.onToggleImportant}
-                    onToggleDone={this.onToggleDone}
-                    selectAll={this.selectAll}
-                    selectActive={this.selectActive}
-                    selectDone={this.selectDone}
-                />
-            </>
+    const [filter, setFilter] = useState('all')
+    const [toDoData, setToDoData] = useState([
+        createToDoItem('Drink coffee'),
+        createToDoItem('Make awesome App'),
+        createToDoItem('Have a lunch'),
+    ])
+    const onToggleImportant = (id) => {
+        setToDoData((prevToDoData) =>
+            toggleProperty(prevToDoData, id, 'important')
         )
     }
+
+    const onToggleDone = (id) => {
+        setToDoData((prevToDoData) => toggleProperty(prevToDoData, id, 'done'))
+    }
+
+    const onCountdown = (id, timer) => {
+        setToDoData((prevToDoData) => {
+            const index = prevToDoData.findIndex((el) => el.id === id)
+            const updatedToDoData = JSON.parse(JSON.stringify(prevToDoData))
+            updatedToDoData[index].timer = timer
+            return updatedToDoData
+        })
+    }
+
+    const deleteItem = (id) => {
+        setToDoData((prevToDoData) => {
+            const index = prevToDoData.findIndex((el) => el.id === id)
+            const updatedToDoData = JSON.parse(JSON.stringify(prevToDoData))
+            updatedToDoData.splice(index, 1)
+            return updatedToDoData
+        })
+    }
+
+    const addItem = (text, min, sec) => {
+        const newItem = createToDoItem(text, min, sec)
+        setToDoData((prevToDoData) => {
+            const updatedToDoData = JSON.parse(JSON.stringify(prevToDoData))
+            updatedToDoData.push(newItem)
+            return updatedToDoData
+        })
+    }
+
+    const deleteAllDone = () => {
+        setToDoData((prevToDoData) => {
+            const updatedToDoData = JSON.parse(JSON.stringify(prevToDoData))
+            const newData = updatedToDoData.filter((el) => !el.done)
+            return newData
+        })
+    }
+
+    const changeFilter = (newFilter) => {
+        setFilter(newFilter)
+    }
+
+    const doneCount = toDoData.filter((el) => el.done).length
+    const toDoCount = toDoData.length - doneCount
+
+    return (
+        <>
+            <AppHeader />
+            <AddNewTaskPanel onAdd={addItem} />
+            <ItemStatusFilter
+                toDo={toDoCount}
+                done={doneCount}
+                deleteAllDone={deleteAllDone}
+                changeFilter={changeFilter}
+            />
+            <ToDoList
+                toDos={toDoData}
+                filter={filter}
+                onDelete={deleteItem}
+                onToggleImportant={onToggleImportant}
+                onToggleDone={onToggleDone}
+                onCountdown={(id, timer) => onCountdown(id, timer)}
+            />
+        </>
+    )
 }

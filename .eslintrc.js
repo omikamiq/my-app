@@ -21,6 +21,7 @@ module.exports = {
         'no-alert': 'warn',
         'linebreak-style': 'off',
         'no-param-reassign': 'off',
+        'no-unsafe-optional-chaining': 'off',
         'no-plusplus': 'off',
         'object-curly-newline': 'off',
         radix: 'off',
@@ -44,6 +45,7 @@ module.exports = {
         ],
         'jsx-a11y/label-has-for': 'off',
         'jsx-a11y/label-has-associated-control': 'off',
+        'jsx-a11y/control-has-associated-label': 'off',
         'prettier/prettier': ['error'],
     },
 }

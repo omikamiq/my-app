@@ -1,5 +1,6 @@
 .todo-list .list-group-item {
-  padding: 0.25rem 0.75rem;
-  width: 73vw;
-  margin: 1vh auto;
+    padding: 0.25rem 0.75rem;
+    width: 73vw;
+    margin: 1vh auto;
+    display: none;
 }
