@@ -12,16 +12,23 @@ export default function AddNewTaskPanel({ onAdd }) {
     }
 
     const onMinChange = (e) => {
-        setMin(e.target.value)
+        setMin(e.target.value || 0)
     }
 
     const onSecChange = (e) => {
-        setSec(e.target.value)
+        setSec(e.target.value || 0)
     }
 
     const onSubmit = (e) => {
         e.preventDefault()
-        onAdd(label, min, sec)
+        if (+min < 60 && +min >= 0 && +sec < 60 && +sec >= 0)
+            onAdd(label, min, sec)
+        else {
+            setLabel('')
+            setMin('')
+            setSec('')
+        }
+
         setLabel('')
         setMin('')
         setSec('')
