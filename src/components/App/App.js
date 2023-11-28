@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import AppHeader from '../AppHeader/AppHeader'
 import ToDoList from '../ToDoList/ToDoList'
 import ItemStatusFilter from '../ItemStatusFilter/ItemStatusFilter'
@@ -12,7 +12,7 @@ const toggleProperty = (arr, id, propName) => {
 }
 
 export default function App() {
-    let maxId = 100
+    const maxId = useRef(100)
 
     const createToDoItem = (label, min, sec) => {
         const createTime = new Date().getTime()
@@ -22,7 +22,7 @@ export default function App() {
             sec: sec || '00',
             important: false,
             done: false,
-            id: maxId++,
+            id: maxId.current++,
             createTime,
             timer: createTime + (+min * 60 + +sec) * 1000,
         }
