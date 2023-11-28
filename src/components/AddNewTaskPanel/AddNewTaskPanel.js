@@ -22,9 +22,9 @@ export default function AddNewTaskPanel({ onAdd }) {
     const onSubmit = (e) => {
         e.preventDefault()
         onAdd(label, min, sec)
-        setLabel(e.target.value)
-        setMin(e.target.value)
-        setSec(e.target.value)
+        setLabel('')
+        setMin('')
+        setSec('')
     }
 
     return (
