@@ -1,17 +1,19 @@
-.item-status-filter {
-  height: fit-content;
+.item-status-filter-wrapper {
+    display: inline;
+    position: relative;
 }
 
 .btn-group {
-  vertical-align: baseline;
-  @media (max-width: 375px) {
-    left: 40px;
-  }
+    vertical-align: baseline;
+    @media (max-width: 375px) {
+        left: 40px;
+    }
 }
 
 .progress-line {
-  font-size: 18px;
-  position: absolute;
-  color: gray;
-  top: 26vh;
+    position: absolute;
+    font-size: 18px;
+    color: gray;
+    bottom: 40px;
+    left: 1vw;
 }

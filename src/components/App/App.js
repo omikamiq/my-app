@@ -29,11 +29,8 @@ export default function App() {
     }
 
     const [filter, setFilter] = useState('all')
-    const [toDoData, setToDoData] = useState([
-        createToDoItem('Drink coffee'),
-        createToDoItem('Make awesome App'),
-        createToDoItem('Have a lunch'),
-    ])
+    const [toDoData, setToDoData] = useState([])
+
     const onToggleImportant = (id) => {
         setToDoData((prevToDoData) =>
             toggleProperty(prevToDoData, id, 'important')

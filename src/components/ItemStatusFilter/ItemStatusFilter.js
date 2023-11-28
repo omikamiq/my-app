@@ -9,7 +9,7 @@ export default function ItemStatusFilter({
     changeFilter,
 }) {
     return (
-        <>
+        <div className="item-status-filter-wrapper">
             <span className="progress-line">
                 {toDo} more to do, {done} done
             </span>
@@ -43,7 +43,7 @@ export default function ItemStatusFilter({
                     Clear all done
                 </button>
             </div>
-        </>
+        </div>
     )
 }
 
